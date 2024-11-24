@@ -1,0 +1,17 @@
+formatter: 'markdown table'
+
+# Write the generated output into README.md
+output:
+  file: README.md
+  mode: inject
+
+recursive:
+  include-main: false
+
+# Only show the following sections
+sections:
+  show:
+    - requirements
+    - resources
+    - inputs
+    - outputs
