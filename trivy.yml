@@ -1,5 +1,5 @@
 # Trivy Configuration
-# Docs: https://trivy.dev/v0.33/docs/references/customization/config-file/
+# Docs: https://trivy.dev/v0.57/docs/references/configuration/config-file/
 
 # Output format
 format: table

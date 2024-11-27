@@ -7,11 +7,13 @@ jobs:
   documentation:
     runs-on: codebuild-terraform-module-demo-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
+      # Checkout source code
       - name: Checkout the source code
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
+      # Generate docs
       - name: Generate terraform docs and push changes back to PR branch
         uses: terraform-docs/gh-actions@v1.3.0
         with:

@@ -44,6 +44,7 @@ lint: ## Lints the project to discover any potential errors
 .PHONY: scan
 scan: ## Scans all Terraform files for security vulnerabilities
 	$(TRIVY) config --config $(WORK_DIR)/trivy.yml $(MODULES_DIR)
+	$(TRIVY) config --config $(WORK_DIR)/trivy.yml $(MODULES_DIR)
 
 .PHONY: create-module 
 create-module: ## Create a new module, usage: make create-module NAME=<name>
