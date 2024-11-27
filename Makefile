@@ -22,8 +22,8 @@ clean: ## Removes all generated files from the working directory
 	rm -rf .terraform*
 	rm -rf $(PLAN_FILE)
 
-.PHONY: install
-install: validate ## Installs plugins required for developing this library
+.PHONY: init
+init: ## Initialize the project
 	$(TF) init
 	$(TF) get -update
 	$(TFL) --init
