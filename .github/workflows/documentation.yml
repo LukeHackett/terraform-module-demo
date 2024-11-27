@@ -5,7 +5,7 @@ on:
 
 jobs:
   docs:
-    runs-on: codebuild-luke-github-demo-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on: codebuild-terraform-module-demo-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - name: Checkout the source code
         uses: actions/checkout@v4

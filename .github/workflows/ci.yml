@@ -5,7 +5,7 @@ on: [push]
 jobs:
   CI-Job:
     runs-on:
-      - codebuild-luke-github-demo-${{ github.run_id }}-${{ github.run_attempt }}
+      - codebuild-terraform-module-demo-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
 
       - name: Checkout
@@ -18,7 +18,7 @@ jobs:
  
   NodeJs-Demo-Job:
     runs-on:
-      - codebuild-luke-github-demo-${{ github.run_id }}-${{ github.run_attempt }}
+      - codebuild-terraform-module-demo-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
