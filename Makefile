@@ -1,6 +1,7 @@
 # Binary paths
 TF := terraform
 TFL := tflint
+TRIVY := trivy
 TFD := terraform-docs
 
 # Directory Variables
@@ -32,6 +33,7 @@ init: ## Initialize the project
 validate: ## Validates all project dependencies are installed
 	@command -v $(TF) >/dev/null 2>&1 || { echo >&2 "Unable to continue: 'terraform' is not installed"; exit 1; }
 	@command -v $(TFL) >/dev/null 2>&1 || { echo >&2 "Unable to continue: 'tflint' is not installed"; exit 1; }
+	@command -v $(TRIVY) >/dev/null 2>&1 || { echo >&2 "Unable to continue: 'trivy' is not installed"; exit 1; }
 	@command -v $(TFD) >/dev/null 2>&1 || { echo >&2 "Unable to continue: 'terraform-docs' is not installed"; exit 1; }
 
 .PHONY: lint
@@ -39,9 +41,9 @@ lint: ## Lints the project to discover any potential errors
 	$(TFL) --recursive --config "$(WORK_DIR)/.tflint.hcl"
 	$(TF) fmt -recursive -check -diff
 
-.PHONY: format
-format: ## Formats all Terraform files into a canonical format
-	$(TF) fmt -recursive
+.PHONY: scan
+scan: ## Scans all Terraform files for security vulnerabilities
+	$(TRIVY) config --config $(WORK_DIR)/trivy.yml $(MODULES_DIR)
 
 .PHONY: create-module 
 create-module: ## Create a new module, usage: make create-module NAME=<name>

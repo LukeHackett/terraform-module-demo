@@ -8,14 +8,19 @@ jobs:
     runs-on:
       - codebuild-terraform-module-demo-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
+      # Checkout source code
       - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: Setup tfLint
-        uses: terraform-linters/setup-tflint@v4
-
+      # Install Dependencies
       - name: Setup terraform
         uses: hashicorp/setup-terraform@v3
-      
+      - name: Setup tfLint
+        uses: terraform-linters/setup-tflint@v4
+      - name: Setup trivy
+        uses: aquasecurity/tfsec-action@v1.0.0
+      # Run the build
       - name: Lint the terraform modules
         run: make init lint
+      - name: Scan the terraform modules for security vulnerabilities
+        run: make scan
+
