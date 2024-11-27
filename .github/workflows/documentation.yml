@@ -16,7 +16,8 @@ jobs:
         uses: terraform-docs/gh-actions@v1.3.0
         with:
           config-file: .terraform-docs.yml
-          working-dir: modules/
+          working-dir: .
           recursive: true
+          recursive-path: modules
           git-push: true
           git-commit-message: Updating module documentation
