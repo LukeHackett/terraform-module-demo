@@ -4,7 +4,7 @@ on:
   - pull_request
 
 jobs:
-  docs:
+  documentation:
     runs-on: codebuild-terraform-module-demo-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
       - name: Checkout the source code
@@ -12,12 +12,10 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: Install terraform docs
+      - name: Generate terraform docs and push changes back to PR branch
         uses: terraform-docs/gh-actions@v1.3.0
         with:
           config-file: .terraform-docs.yml
           find-dir: modules
-          # recursive: true
-          # recursive-path: modules
           git-push: true
           git-commit-message: Updating module documentation

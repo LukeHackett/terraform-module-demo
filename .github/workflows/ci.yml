@@ -1,10 +1,10 @@
-name: Continuous Integration
+name: Build terraform module
 
 on:
   - push
 
 jobs:
-  CI-Job:
+  lint:
     runs-on:
       - codebuild-terraform-module-demo-${{ github.run_id }}-${{ github.run_attempt }}
     steps:
