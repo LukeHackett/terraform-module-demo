@@ -18,4 +18,4 @@ jobs:
         uses: hashicorp/setup-terraform@v3
       
       - name: Lint the terraform modules
-        run: make lint
+        run: make init lint
