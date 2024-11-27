@@ -1,11 +1,12 @@
-# Make setup
-WORK_DIR := $(realpath $(dir $(firstword $(MAKEFILE_LIST))))
-
-# Terraform variables
+# Binary paths
 TF := terraform
 TFL := tflint
 TFD := terraform-docs
+
+# Directory Variables
+WORK_DIR := $(realpath $(dir $(firstword $(MAKEFILE_LIST))))
 PLAN_FILE := $(WORK_DIR)/terraform.tfplan
+MODULES_DIR := $(WORK_DIR)/modules
 
 ##@ Help
 # from https://www.thapaliya.com/en/writings/well-documented-makefiles/
@@ -47,12 +48,12 @@ create-module: ## Create a new module, usage: make create-module NAME=<name>
 ifeq ($(NAME),)
 	$(error NAME argument is not set)
 else
-	rm -rf "$(WORK_DIR)/aws/$(NAME)"
-	mkdir -p "$(WORK_DIR)/aws/$(NAME)"
-	cp --recursive --force "$(WORK_DIR)/templates/terraform-module/." "$(WORK_DIR)/aws/$(NAME)"
+	rm -rf "$(MODULES_DIR)/$(NAME)"
+	mkdir -p "$(MODULES_DIR)/$(NAME)"
+	cp --recursive --force "$(WORK_DIR)/templates/terraform-module/." "$(MODULES_DIR)/$(NAME)"
 endif
 
 .PHONY: generate-docs
 generate-docs: ## Generates the documentation for all modules
-	@echo "Updating module documentation within '$(WORK_DIR)/aws'"
-	@find "$(WORK_DIR)/aws" -name "provider.tf" -type f -exec sh -c '$(TFD) --config $(WORK_DIR)/.terraform-docs.yml $$(dirname $$1)' sh {} \;
+	@echo "Updating module documentation within '$(MODULES_DIR)'"
+	@find "$(MODULES_DIR)" -name "provider.tf" -type f -exec sh -c '$(TFD) --config $(WORK_DIR)/.terraform-docs.yml $$(dirname $$1)' sh {} \;
