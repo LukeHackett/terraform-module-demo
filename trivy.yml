@@ -1,0 +1,11 @@
+# Trivy Configuration
+# Docs: https://trivy.dev/v0.57/docs/references/configuration/config-file/
+
+# Output format
+format: table
+
+# Severities that will cause the build to fail
+severity:
+  - MEDIUM
+  - HIGH
+  - CRITICAL
