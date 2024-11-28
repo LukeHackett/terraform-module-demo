@@ -1,0 +1,29 @@
+name: Build terraform module
+
+on:
+  - push
+
+jobs:
+  lint:
+    runs-on:
+      - codebuild-terraform-module-demo-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      # Checkout source code
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      # Install Dependencies
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: Setup tfLint
+        uses: terraform-linters/setup-tflint@v4
+      
+      # Run the linter & code scaner
+      - name: Lint the terraform modules
+        run: make init lint
+      - name: Scan the terraform modules for security vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'config'
+          scan-ref: './modules'
+          trivy-config: trivy.yml
