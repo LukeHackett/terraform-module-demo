@@ -18,11 +18,12 @@ jobs:
       - name: Setup tfLint
         uses: terraform-linters/setup-tflint@v4
       
-      # Run the build
+      # Run the linter & code scaner
       - name: Lint the terraform modules
         run: make init lint
       - name: Scan the terraform modules for security vulnerabilities
-        uses: aquasecurity/tfsec-action@v1.0.0
+        uses: aquasecurity/trivy-action@master
         with:
-          working_directory: modules
-          additional_args: --config trivy.yml 
+          scan-type: 'config'
+          scan-ref: './modules'
+          trivy-config: trivy.yml
