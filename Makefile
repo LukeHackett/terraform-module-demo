@@ -41,6 +41,10 @@ lint: ## Lints the project to discover any potential errors
 	$(TFL) --recursive --config "$(WORK_DIR)/.tflint.hcl"
 	$(TF) fmt -recursive -check -diff
 
+.PHONY: format
+format: ## Formats all Terraform configuration files into a canonical format
+	$(TF) fmt -recursive
+
 .PHONY: scan
 scan: ## Scans all Terraform files for security vulnerabilities
 	$(TRIVY) config --config $(WORK_DIR)/trivy.yml $(MODULES_DIR)
